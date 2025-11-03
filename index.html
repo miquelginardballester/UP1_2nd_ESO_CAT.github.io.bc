@@ -1,0 +1,1698 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qüestionari - Història 2n ESO</title>
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --success: #27ae60;
+            --warning: #f39c12;
+            --danger: #e74c3c;
+            --light: #ecf0f1;
+            --dark: #34495e;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--light);
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: var(--secondary);
+            margin: 25px 0 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--light);
+        }
+
+        h3 {
+            color: var(--dark);
+            margin: 20px 0 10px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            border-left: 4px solid var(--secondary);
+        }
+
+        .question {
+            margin-bottom: 20px;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+
+        .options {
+            margin: 15px 0;
+        }
+
+        .option {
+            margin: 8px 0;
+            padding: 10px;
+            background-color: var(--light);
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .option:hover {
+            background-color: #dfe6e9;
+        }
+
+        .option.selected {
+            background-color: var(--secondary);
+            color: white;
+        }
+
+        .option.correct {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .option.incorrect {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .true-false {
+            display: flex;
+            gap: 15px;
+            margin: 15px 0;
+        }
+
+        .true-false-btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.2s;
+        }
+
+        .true-btn {
+            background-color: #d4edda;
+            color: var(--success);
+        }
+
+        .false-btn {
+            background-color: #f8d7da;
+            color: var(--danger);
+        }
+
+        .true-false-btn.selected {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 2px currentColor;
+        }
+
+        .true-btn.selected {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .false-btn.selected {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        textarea {
+            width: 100%;
+            min-height: 120px;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            resize: vertical;
+            font-size: 16px;
+        }
+
+        .fill-blanks {
+            margin: 15px 0;
+            font-size: 18px;
+            line-height: 1.8;
+        }
+
+        .blank {
+            display: inline-block;
+            min-width: 100px;
+            border-bottom: 2px dashed #aaa;
+            margin: 0 5px;
+            position: relative;
+        }
+
+        .blank input {
+            width: 100%;
+            border: none;
+            outline: none;
+            text-align: center;
+            background: transparent;
+            font-size: 16px;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            padding: 15px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .feedback.correct {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .feedback.incorrect {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        .feedback.info {
+            background-color: #d1ecf1;
+            color: #0c5460;
+            border: 1px solid #bee5eb;
+        }
+
+        .check-btn, .show-feedback-btn {
+            padding: 10px 20px;
+            background-color: var(--secondary);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+            transition: background-color 0.2s;
+        }
+
+        .check-btn:hover, .show-feedback-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .results {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: var(--light);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .score {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .summary {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        /* Comptador de ratxa */
+        .streak-counter {
+            text-align: center;
+            padding: 10px;
+            margin: 15px 0;
+            background: linear-gradient(135deg, #ff6b6b, #ffa726);
+            color: white;
+            border-radius: 25px;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(255, 107, 107, 0.3);
+        }
+
+        /* Capçalera del feedback */
+        .feedback-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(0,0,0,0.1);
+        }
+
+        .feedback-icon {
+            font-size: 1.5em;
+        }
+
+        /* Caixes d'explicació */
+        .explanation-box {
+            background: rgba(255, 255, 255, 0.7);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-left: 4px solid var(--secondary);
+        }
+
+        /* Bonificacions per ratxa */
+        .streak-bonus {
+            background: linear-gradient(135deg, #ffa726, #ff6b6b);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 20px;
+            text-align: center;
+            font-weight: bold;
+            margin: 10px 0;
+            animation: pulse 2s infinite;
+        }
+
+        /* Consells i tips */
+        .feedback-tip {
+            background: #e3f2fd;
+            padding: 10px;
+            border-radius: 8px;
+            border-left: 4px solid #2196f3;
+            margin: 10px 0;
+        }
+
+        /* Correccions per a buits */
+        .blank-correction {
+            padding: 8px;
+            margin: 5px 0;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 5px;
+            border-left: 3px solid #ffa726;
+        }
+
+        .user-answer {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .correct-answer {
+            color: #27ae60;
+            font-weight: bold;
+        }
+
+        .blank-number {
+            font-weight: bold;
+            color: var(--dark);
+        }
+
+        /* Celebrations */
+        .completion-celebration {
+            text-align: center;
+            padding: 10px;
+            background: linear-gradient(135deg, #4caf50, #8bc34a);
+            color: white;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        .celebration-icon {
+            font-size: 1.2em;
+            margin-right: 5px;
+        }
+
+        /* Resultats finals */
+        .final-score {
+            font-size: 2em;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .score-number {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .score-detail {
+            font-size: 1.1em;
+            color: var(--dark);
+            margin-bottom: 15px;
+        }
+
+        .final-feedback {
+            font-size: 1.3em;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(41, 128, 185, 0.1);
+            border-radius: 10px;
+            border-left: 5px solid var(--secondary);
+        }
+
+        .celebration-message {
+            font-size: 1.1em;
+            margin: 10px 0;
+            padding: 10px;
+            background: rgba(39, 174, 96, 0.1);
+            border-radius: 8px;
+        }
+
+        .special-achievement {
+            background: linear-gradient(135deg, #ffa726, #ff6b6b);
+            color: white;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 10px 0;
+            text-align: center;
+            animation: bounce 1s ease-in-out;
+        }
+
+        /* Secció de recomanacions */
+        .study-recommendations {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border: 1px solid #e9ecef;
+        }
+
+        .general-tips {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #dee2e6;
+        }
+
+        /* Puntuació de seccions */
+        .section-score {
+            font-weight: bold;
+            padding: 2px 8px;
+            border-radius: 12px;
+            background: var(--light);
+        }
+
+        /* Animacions */
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {transform: translateY(0);}
+            40% {transform: translateY(-10px);}
+            60% {transform: translateY(-5px);}
+        }
+
+        /* Estats dels buits */
+        .correct-blank {
+            animation: correctPulse 0.5s ease-in-out;
+        }
+
+        .incorrect-blank {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes correctPulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% {transform: translateX(0);}
+            25% {transform: translateX(-5px);}
+            75% {transform: translateX(5px);}
+        }
+
+        /* Tipus de feedback addicionals */
+        .feedback.warning {
+            background-color: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        /* Estils per a l'avaluació automàtica */
+        .auto-evaluation-result {
+            margin: 15px 0;
+            border-radius: 10px;
+            overflow: hidden;
+            animation: slideIn 0.5s ease-out;
+        }
+
+        .evaluation-header {
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+        }
+
+        .score-main {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .score-icon {
+            font-size: 2.5em;
+        }
+
+        .score-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .score-value {
+            font-size: 2em;
+            font-weight: bold;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .score-level {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: var(--dark);
+        }
+
+        .evaluation-details {
+            padding: 20px;
+            background: white;
+        }
+
+        .elements-section, .feedback-section {
+            margin-bottom: 20px;
+        }
+
+        .elements-section h4, .feedback-section h4 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            border-bottom: 2px solid var(--light);
+            padding-bottom: 5px;
+        }
+
+        .elements-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .element-found, .element-missing, .feedback-detail {
+            padding: 10px;
+            border-radius: 8px;
+            margin: 5px 0;
+        }
+
+        .element-found {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            color: #155724;
+        }
+
+        .element-missing {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            color: #856404;
+        }
+
+        .feedback-detail {
+            background: #e7f3ff;
+            border-left: 4px solid #17a2b8;
+            color: #0c5460;
+        }
+
+        .word-count {
+            margin-top: 10px;
+            padding: 8px;
+            background: #f8f9fa;
+            border-radius: 5px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .improvement-tips {
+            padding: 20px;
+            background: #fff3cd;
+            border-radius: 0 0 10px 10px;
+        }
+
+        .improvement-tips h4 {
+            color: #856404;
+            margin-bottom: 15px;
+        }
+
+        .tips-content {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .tips-content p {
+            margin: 0;
+            padding: 8px;
+            background: rgba(255, 255, 255, 0.7);
+            border-radius: 5px;
+        }
+
+        /* Animacions per a l'avaluació */
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .ideal-answer-section, .explanation-section {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .ideal-answer-section {
+            background: #e8f4fd;
+            border: 1px solid #b6e0fe;
+        }
+
+        .explanation-section {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+        }
+
+        /* Estils responsius */
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .true-false {
+                flex-direction: column;
+            }
+            
+            .feedback-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .final-score {
+                font-size: 1.5em;
+            }
+            
+            .streak-counter {
+                font-size: 0.9em;
+                padding: 8px;
+            }
+            
+            .score-main {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .score-value {
+                font-size: 1.8em;
+            }
+            
+            .evaluation-header {
+                padding: 15px;
+            }
+            
+            .evaluation-details {
+                padding: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Qüestionari - Història 2n ESO</h1>
+            <p>Respon les preguntes i comprova els teus coneixements</p>
+        </header>
+        
+        <!-- Comptador de ratxa -->
+        <div id="streak-counter" class="streak-counter">
+            🔥 Ratxa actual: 0 | 🏆 Millor ratxa: 0
+        </div>
+        
+        <!-- SA1: CAIGUDA DE L'IMPERI ROMÀ -->
+        <div class="section">
+            <h2>SA1: CAIGUDA DE L'IMPERI ROMÀ</h2>
+            
+            <!-- P1 - Multiopció -->
+            <div class="question" id="sa1-p1">
+                <h3>P1 - Multiopció</h3>
+                <p>Quin dels següents factors va ser una causa política de la crisi de l'Imperi Romà d'Occident?</p>
+                <div class="options">
+                    <div class="option" data-value="0">La pèrdua de terres cultivables per l'erosió.</div>
+                    <div class="option" data-value="1">La inestabilitat i les guerres civils per la successió imperial.</div>
+                    <div class="option" data-value="2">La importació massiva de seda de la Xina.</div>
+                    <div class="option" data-value="3">L'aparició de noves tecnologies militars.</div>
+                </div>
+                <button class="check-btn" onclick="checkMultipleChoice('sa1-p1', 1)">Comprova resposta</button>
+                <div class="feedback"></div>
+            </div>
+            
+            <!-- P2 - Vertader/Fals -->
+            <div class="question" id="sa1-p2">
+                <h3>P2 - Vertader/Fals</h3>
+                <p>La divisió de l'Imperi Romà en Orient i Occident va afeblir considerablement l'Imperi d'Occident.</p>
+                <div class="true-false">
+                    <button class="true-false-btn true-btn" onclick="selectTrueFalse('sa1-p2', true)">Vertader</button>
+                    <button class="true-false-btn false-btn" onclick="selectTrueFalse('sa1-p2', false)">Fals</button>
+                </div>
+                <button class="check-btn" onclick="checkTrueFalse('sa1-p2', true)">Comprova resposta</button>
+                <div class="feedback"></div>
+            </div>
+            
+            <!-- P3 - Desenvolupament amb avaluació automàtica -->
+            <div class="question" id="sa1-p3">
+                <h3>P3 - Desenvolupament</h3>
+                <p>Explica com les invasions germàniques van contribuir a la caiguda de l'Imperi Romà d'Occident.</p>
+                <textarea placeholder="Escriu la teva resposta aquí..." id="sa1-p3-text"></textarea>
+                <button class="show-feedback-btn" onclick="showDevelopmentFeedback('sa1-p3')">🔍 Avalua la meva resposta automàticament</button>
+                <div class="feedback info" id="sa1-p3-feedback">
+                    <!-- L'avaluació automàtica s'insertarà aquí -->
+                    
+                    <div class="ideal-answer-section">
+                        <h4>📝 Resposta ideal:</h4>
+                        <p>Les invasions germàniques van contribuir decisivament a la caiguda de l'Imperi Romà d'Occident. Des del segle III, pobles germànics com els gots, vàndals, francs i sueus van pressionar constantment les fronteres de l'imperi. Aquesta pressió militar va obligar Roma a desviar grans recursos per a la defensa, afeblint altres àrees. A més, molts d'aquests pobles es van establir dins dels territoris romans, creant regnes independents que van fragmentar l'imperi. Finalment, el saqueig de Roma pels visigots el 410 i la deposició de l'últim emperador romà d'Occident, Ròmul Augústul, per Odoacre el 476, van marcar el final definitiu de l'Imperi Romà d'Occident.</p>
+                    </div>
+                    
+                    <div class="explanation-section">
+                        <h4>🧠 Explicació:</h4>
+                        <p>Les invasions germàniques no van ser l'única causa de la caiguda, però van ser el factor desencadenant que va accelerar un procés ja en marxa per les crisis internes.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- P4 - Emplenar buits -->
+            <div class="question" id="sa1-p4">
+                <h3>P4 - Emplenar buits</h3>
+                <div class="fill-blanks">
+                    <p>L'Imperi Romà d'Occident es va dividir en dos l'any <span class="blank"><input type="text" id="sa1-p4-0"></span>. Entre les causes de la seva caiguda hi ha les <span class="blank"><input type="text" id="sa1-p4-1"></span> civils, les invasions <span class="blank"><input type="text" id="sa1-p4-2"></span> i la crisi <span class="blank"><input type="text" id="sa1-p4-3"></span>.</p>
+                </div>
+                <button class="check-btn" onclick="checkFillBlanks('sa1-p4', ['476', 'guerres', 'germàniques', 'econòmica'])">Comprova resposta</button>
+                <div class="feedback"></div>
+            </div>
+        </div>
+        
+        <!-- SA2: IMPERI BIZANTÍ -->
+        <div class="section">
+            <h2>SA2: IMPERI BIZANTÍ</h2>
+            
+            <!-- P1 - Multiopció -->
+            <div class="question" id="sa2-p1">
+                <h3>P1 - Multiopció</h3>
+                <p>Quina va ser la capital de l'Imperi Bizantí?</p>
+                <div class="options">
+                    <div class="option" data-value="0">Roma</div>
+                    <div class="option" data-value="1">Atenes</div>
+                    <div class="option" data-value="2">Constantinoble</div>
+                    <div class="option" data-value="3">Alexandria</div>
+                </div>
+                <button class="check-btn" onclick="checkMultipleChoice('sa2-p1', 2)">Comprova resposta</button>
+                <div class="feedback"></div>
+            </div>
+            
+            <!-- P2 - Vertader/Fals -->
+            <div class="question" id="sa2-p2">
+                <h3>P2 - Vertader/Fals</h3>
+                <p>L'Imperi Bizantí va mantenir la religió romana com a religió oficial durant tota la seva existència.</p>
+                <div class="true-false">
+                    <button class="true-false-btn true-btn" onclick="selectTrueFalse('sa2-p2', true)">Vertader</button>
+                    <button class="true-false-btn false-btn" onclick="selectTrueFalse('sa2-p2', false)">Fals</button>
+                </div>
+                <button class="check-btn" onclick="checkTrueFalse('sa2-p2', false)">Comprova resposta</button>
+                <div class="feedback"></div>
+            </div>
+            
+            <!-- P3 - Desenvolupament amb avaluació automàtica -->
+            <div class="question" id="sa2-p3">
+                <h3>P3 - Desenvolupament</h3>
+                <p>Explica les principals innovacions de l'imperi Bizantí respecte a l'imperi Romà.</p>
+                <textarea placeholder="Escriu la teva resposta aquí..." id="sa2-p3-text"></textarea>
+                <button class="show-feedback-btn" onclick="showDevelopmentFeedback('sa2-p3')">🔍 Avalua la meva resposta automàticament</button>
+                <div class="feedback info" id="sa2-p3-feedback">
+                    <!-- L'avaluació automàtica s'insertarà aquí -->
+                    
+                    <div class="ideal-answer-section">
+                        <h4>📝 Resposta ideal:</h4>
+                        <p>L'Imperi Bizantí va introduir importants innovacions respecte a l'Imperi Romà tradicional. La més significativa va ser l'adopció del cristianisme com a religió oficial, amb una església ortodoxa pròpia separada de Roma. Això va implicar noves formes de simbologia religiosa i litúrgia. Encara que van mantenir el llatí com a llengua oficial inicialment, gradualment el grec va esdevenir la llengua predominant. Pel que fa a l'administració, van desenvolupar el dret romà creant el Corpus Juris Civilis o Codi de Justinià, que va recopilar i sistematitzar totes les lleis romanes i que es convertiria en la base del dret europeu medieval.</p>
+                    </div>
+                    
+                    <div class="explanation-section">
+                        <h4>🧠 Explicació:</h4>
+                        <p>L'Imperi Bizantí no va ser simplement una continuació de Roma, sinó una evolució amb identitat pròpia, especialment en l'àmbit religiós i legal.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- P4 - Emplenar buits -->
+            <div class="question" id="sa2-p4">
+                <h3>P4 - Emplenar buits</h3>
+                <div class="fill-blanks">
+                    <p>L'Imperi Bizantí es va originar amb la divisió de l'Imperi Romà l'any <span class="blank"><input type="text" id="sa2-p4-0"></span>. El seu emperador més important va ser <span class="blank"><input type="text" id="sa2-p4-1"></span>, qui va compilar les lleis en el <span class="blank"><input type="text" id="sa2-p4-2"></span>.</p>
+                </div>
+                <button class="check-btn" onclick="checkFillBlanks('sa2-p4', ['476', 'Justinià', 'Codi de Justinià'])">Comprova resposta</button>
+                <div class="feedback"></div>
+            </div>
+        </div>
+        
+        <!-- SA3: IMPERI ISLÀMIC -->
+        <div class="section">
+            <h2>SA3: IMPERI ISLÀMIC</h2>
+            
+            <!-- P1 - Multiopció -->
+            <div class="question" id="sa3-p1">
+                <h3>P1 - Multiopció</h3>
+                <p>On va néixer Mahoma, fundador de l'islam?</p>
+                <div class="options">
+                    <div class="option" data-value="0">Medina</div>
+                    <div class="option" data-value="1">Damasc</div>
+                    <div class="option" data-value="2">La Meca</div>
+                    <div class="option" data-value="3">Bagdad</div>
+                </div>
+                <button class="check-btn" onclick="checkMultipleChoice('sa3-p1', 2)">Comprova resposta</button>
+                <div class="feedback"></div>
+            </div>
+            
+            <!-- P2 - Vertader/Fals -->
+            <div class="question" id="sa3-p2">
+                <h3>P2 - Vertader/Fals</h3>
+                <p>L'expansió de l'Imperi Islàmic va ser sobretot militar i no va incloure aspectes culturals o comercials.</p>
+                <div class="true-false">
+                    <button class="true-false-btn true-btn" onclick="selectTrueFalse('sa3-p2', true)">Vertader</button>
+                    <button class="true-false-btn false-btn" onclick="selectTrueFalse('sa3-p2', false)">Fals</button>
+                </div>
+                <button class="check-btn" onclick="checkTrueFalse('sa3-p2', false)">Comprova resposta</button>
+                <div class="feedback"></div>
+            </div>
+            
+            <!-- P3 - Desenvolupament amb avaluació automàtica -->
+            <div class="question" id="sa3-p3">
+                <h3>P3 - Desenvolupament</h3>
+                <p>Explica els factors que van permetre la ràpida expansió de l'Imperi Islàmic durant els segles VII i VIII i a quins continents es va extendre.</p>
+                <textarea placeholder="Escriu la teva resposta aquí..." id="sa3-p3-text"></textarea>
+                <button class="show-feedback-btn" onclick="showDevelopmentFeedback('sa3-p3')">🔍 Avalua la meva resposta automàticament</button>
+                <div class="feedback info" id="sa3-p3-feedback">
+                    <!-- L'avaluació automàtica s'insertarà aquí -->
+                    
+                    <div class="ideal-answer-section">
+                        <h4>📝 Resposta ideal:</h4>
+                        <p>La ràpida expansió de l'Imperi Islàmic es va deure a múltiples factors. En primer lloc, l'islam va unificar les tribus àrabs, que van passar de ser grups dispersos a una força cohesionada. La religió va actuar com a element aglutinador i motivador. Militarment, van desenvolupar tàctiques eficaces i van aprofitar la debilitat dels imperis veïns (bizantí i sassànida). Econòmicament, el comerç va ser clau, estenent xarxes comercials per tot l'imperi. Culturalment, l'àrab es va imposar com a llengua de cultura i administració. Gràcies a tot això, en poc més d'un segle, l'islam es va estendre des de la Península Ibèrica a l'oest fins a l'Índia a l'est, cobrint parts d'Europa, Àfrica i Àsia.</p>
+                    </div>
+                    
+                    <div class="explanation-section">
+                        <h4>🧠 Explicació:</h4>
+                        <p>L'expansió islàmica va ser un fenomen complex que combinava conquesta militar amb assimilació cultural i expansió comercial, no només un procés militar.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- P4 - Emplenar buits -->
+            <div class="question" id="sa3-p4">
+                <h3>P4 - Emplenar buits</h3>
+                <div class="fill-blanks">
+                    <p>L'any de la Hègira, quan Mahoma va fugir de La Meca a Medina, va ser l'any <span class="blank"><input type="text" id="sa3-p4-0"></span>. Aquest any és considerat l'inici del <span class="blank"><input type="text" id="sa3-p4-1"></span> Musulmà. El profeta Mahoma predicava la paraula del déu <span class="blank"><input type="text" id="sa3-p4-2"></span> i està recollit al llibre anomenat <span class="blank"><input type="text" id="sa3-p4-3"></span>.</p>
+                </div>
+                <button class="check-btn" onclick="checkFillBlanks('sa3-p4', ['622', 'calendari', 'Al·là', 'Alcorà'])">Comprova resposta</button>
+                <div class="feedback"></div>
+            </div>
+        </div>
+        
+        <!-- SA4: IMPERI CAROLINGI -->
+        <div class="section">
+            <h2>SA4: IMPERI CAROLINGI</h2>
+            
+            <!-- P1 - Multiopció -->
+            <div class="question" id="sa4-p1">
+                <h3>P1 - Multiopció</h3>
+                <p>Quin papa va coronar Carlemany com a emperador?</p>
+                <div class="options">
+                    <div class="option" data-value="0">Gregori I</div>
+                    <div class="option" data-value="1">Lleó III</div>
+                    <div class="option" data-value="2">Esteve II</div>
+                    <div class="option" data-value="3">Nicolau I</div>
+                </div>
+                <button class="check-btn" onclick="checkMultipleChoice('sa4-p1', 1)">Comprova resposta</button>
+                <div class="feedback"></div>
+            </div>
+            
+            <!-- P2 - Vertader/Fals -->
+            <div class="question" id="sa4-p2">
+                <h3>P2 - Vertader/Fals</h3>
+                <p>L'Imperi Carolingi va durar més de 500 anys després de la mort de Carlemany.</p>
+                <div class="true-false">
+                    <button class="true-false-btn true-btn" onclick="selectTrueFalse('sa4-p2', true)">Vertader</button>
+                    <button class="true-false-btn false-btn" onclick="selectTrueFalse('sa4-p2', false)">Fals</button>
+                </div>
+                <button class="check-btn" onclick="checkTrueFalse('sa4-p2', false)">Comprova resposta</button>
+                <div class="feedback"></div>
+            </div>
+            
+            <!-- P3 - Desenvolupament amb avaluació automàtica -->
+            <div class="question" id="sa4-p3">
+                <h3>P3 - Desenvolupament</h3>
+                <p>Explica en què va consistir el 'Renaixement Carolingi' i la seva importància.</p>
+                <textarea placeholder="Escriu la teva resposta aquí..." id="sa4-p3-text"></textarea>
+                <button class="show-feedback-btn" onclick="showDevelopmentFeedback('sa4-p3')">🔍 Avalua la meva resposta automàticament</button>
+                <div class="feedback info" id="sa4-p3-feedback">
+                    <!-- L'avaluació automàtica s'insertarà aquí -->
+                    
+                    <div class="ideal-answer-section">
+                        <h4>📝 Resposta ideal:</h4>
+                        <p>El Renaixement Carolingi va ser un moviment cultural i intel·lectual promogut per Carlemany i els seus successors durant els segles VIII i IX. Va consistir en una ambiciosa reforma educativa que va impulsar l'escola palatina d'Aquisgrà i les escoles monàstiques, amb l'objectiu de millorar l'ensenyament del clergat i els funcionaris. Es van preservar i copiar nombrosos textos clàssics llatins i grecs, salvant moltes obres de l'oblit. Es va desenvolupar la minúscula carolíngia, un tipus d'escriptura clara i uniforme que va facilitar la difusió dels textos. En l'àmbit artístic, es van promoure noves formes d'arquitectura i art, com l'art otonià. A més, es va dur a terme una important reforma religiosa per unificar les pràctiques del cristianisme en tot l'imperi. La seva importància rau en haver posat les bases de la cultura medieval europea i haver salvat el llegat cultural de l'antiguitat.</p>
+                    </div>
+                    
+                    <div class="explanation-section">
+                        <h4>🧠 Explicació:</h4>
+                        <p>El Renaixement Carolingi va marcar un punt d'inflexió en la història europea, connectant l'herència clàssica amb el desenvolupament medieval i establint les bases de l'ensenyament occidental.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- P4 - Emplenar buits -->
+            <div class="question" id="sa4-p4">
+                <h3>P4 - Emplenar buits</h3>
+                <div class="fill-blanks">
+                    <p>Carlemany va ser coronat emperador l'any <span class="blank"><input type="text" id="sa4-p4-0"></span>. El seu imperi es va dividir amb el tractat de <span class="blank"><input type="text" id="sa4-p4-1"></span> l'any 843. Els seus tres nets van repartir-se l'imperi: <span class="blank"><input type="text" id="sa4-p4-2"></span> va obtenir la part oriental, <span class="blank"><input type="text" id="sa4-p4-3"></span> la part occidental, i <span class="blank"><input type="text" id="sa4-p4-4"></span> la part central.</p>
+                </div>
+                <button class="check-btn" onclick="checkFillBlanks('sa4-p4', ['800', 'Verdun', 'Lluís el Germànic', 'Carles el Calb', 'Lotari'])">Comprova resposta</button>
+                <div class="feedback"></div>
+            </div>
+        </div>
+        
+        <div class="results">
+            <h2>📊 Resultats Finals</h2>
+            <button class="check-btn" onclick="calculateResults()">Calcula la puntuació final</button>
+            <div class="score" id="score"></div>
+            <div class="summary" id="summary"></div>
+        </div>
+    </div>
+
+    <script>
+        // Estat de les respostes de l'usuari
+        const userAnswers = {};
+        let userStreak = 0;
+        let bestStreak = 0;
+
+        // Missatges de feedback positius variats
+        const positiveFeedback = [
+            "🎉 Excel·lent! Has demostrat un gran domini d'aquest tema.",
+            "✅ Correcte! El teu raonament és molt acurat.",
+            "🌟 Impressionant! Continua així.",
+            "💡 Molt bé! Has entès perfectament el concepte.",
+            "🚀 Fantàstic! Cada vegada ho fas millor.",
+            "🏆 Perfecte! Ets un expert en història.",
+            "👏 Enhorabona! La teva resposta és impecable.",
+            "💫 Brillant! Has captat la idea fonamental."
+        ];
+
+        // Missatges d'encoratjament per errors
+        const encouragingFeedback = [
+            "💪 No et rendeixis! Tothom aprèn dels errors.",
+            "🔍 Gairebé! Revisa aquest concepte i torna-ho a intentar.",
+            "📚 És normal cometre errors. És així com aprenem!",
+            "🌱 Cada error és una oportunitat per créixer.",
+            "🎯 T'estàs apropant! Un petit ajust i ho tindràs.",
+            "✨ No et preocupis! Els grans historiadors també es van equivocar."
+        ];
+
+        // Inicialitzar les opcions per a les preguntes multiopció
+        document.querySelectorAll('.option').forEach(option => {
+            option.addEventListener('click', function() {
+                const questionId = this.closest('.question').id;
+                const value = this.getAttribute('data-value');
+                
+                // Desseleccionar totes les opcions d'aquesta pregunta
+                document.querySelectorAll(`#${questionId} .option`).forEach(opt => {
+                    opt.classList.remove('selected');
+                });
+                
+                // Seleccionar l'opció clicada
+                this.classList.add('selected');
+                
+                // Guardar la resposta
+                userAnswers[questionId] = value;
+            });
+        });
+
+        // Funció per seleccionar Vertader/Fals
+        function selectTrueFalse(questionId, value) {
+            // Desseleccionar tots els botons d'aquesta pregunta
+            document.querySelectorAll(`#${questionId} .true-false-btn`).forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Seleccionar el botó correcte
+            if (value) {
+                document.querySelector(`#${questionId} .true-btn`).classList.add('selected');
+            } else {
+                document.querySelector(`#${questionId} .false-btn`).classList.add('selected');
+            }
+            
+            // Guardar la resposta
+            userAnswers[questionId] = value;
+        }
+
+        // Funció per obtenir un missatge de feedback aleatori
+        function getRandomFeedback(feedbackArray) {
+            return feedbackArray[Math.floor(Math.random() * feedbackArray.length)];
+        }
+
+        // Funció per actualitzar l'estrella de ratxa
+        function updateStreakCounter(isCorrect) {
+            if (isCorrect) {
+                userStreak++;
+                if (userStreak > bestStreak) {
+                    bestStreak = userStreak;
+                }
+            } else {
+                userStreak = 0;
+            }
+            
+            // Actualitzar el comptador visual si existeix
+            const streakCounter = document.getElementById('streak-counter');
+            if (streakCounter) {
+                streakCounter.innerHTML = `🔥 Ratxa actual: ${userStreak} | 🏆 Millor ratxa: ${bestStreak}`;
+                
+                // Afegir animació per ratxes altes
+                if (userStreak >= 3) {
+                    streakCounter.style.animation = "pulse 0.5s ease-in-out";
+                    setTimeout(() => {
+                        streakCounter.style.animation = "";
+                    }, 500);
+                }
+            }
+        }
+
+        // Funció per comprovar preguntes multiopció
+        function checkMultipleChoice(questionId, correctValue) {
+            const userAnswer = userAnswers[questionId];
+            const feedbackEl = document.querySelector(`#${questionId} .feedback`);
+            
+            // Desseleccionar totes les opcions
+            document.querySelectorAll(`#${questionId} .option`).forEach(opt => {
+                opt.classList.remove('correct', 'incorrect');
+            });
+            
+            if (userAnswer === undefined) {
+                feedbackEl.innerHTML = `
+                    <div class="feedback-header">
+                        <span class="feedback-icon">🤔</span>
+                        <strong>Resposta incompleta</strong>
+                    </div>
+                    <p>Si us plau, selecciona una resposta abans de comprovar.</p>
+                    <div class="feedback-tip">
+                        <strong>💡 Consell:</strong> Llegeix totes les opcions abans de triar.
+                    </div>
+                `;
+                feedbackEl.className = "feedback warning";
+                feedbackEl.style.display = "block";
+                updateStreakCounter(false);
+                return;
+            }
+            
+            // Marcar l'opció seleccionada com a correcta o incorrecta
+            const selectedOption = document.querySelector(`#${questionId} .option.selected`);
+            const isCorrect = userAnswer == correctValue;
+            
+            if (isCorrect) {
+                selectedOption.classList.add('correct');
+                feedbackEl.innerHTML = `
+                    <div class="feedback-header">
+                        <span class="feedback-icon">${userStreak >= 3 ? '🔥' : '✅'}</span>
+                        <strong>${getRandomFeedback(positiveFeedback)}</strong>
+                    </div>
+                    <div class="explanation-box">
+                        <strong>🧠 Explicació:</strong> ${getMultipleChoiceExplanation(questionId, correctValue)}
+                    </div>
+                    ${userStreak >= 3 ? `<div class="streak-bonus">🔥 Estàs en ratxa! ${userStreak} respostes correctes consecutives</div>` : ''}
+                `;
+                feedbackEl.className = "feedback correct";
+            } else {
+                selectedOption.classList.add('incorrect');
+                // Marcar també la resposta correcta
+                document.querySelector(`#${questionId} .option[data-value="${correctValue}"]`).classList.add('correct');
+                feedbackEl.innerHTML = `
+                    <div class="feedback-header">
+                        <span class="feedback-icon">💡</span>
+                        <strong>${getRandomFeedback(encouragingFeedback)}</strong>
+                    </div>
+                    <div class="explanation-box">
+                        <strong>📖 Resposta correcta:</strong> ${document.querySelector(`#${questionId} .option[data-value="${correctValue}"]`).textContent}
+                    </div>
+                    <div class="explanation-box">
+                        <strong>🧠 Explicació:</strong> ${getMultipleChoiceExplanation(questionId, correctValue)}
+                    </div>
+                    <div class="feedback-tip">
+                        <strong>💡 Consell d'aprenentatge:</strong> ${getLearningTip(questionId)}
+                    </div>
+                `;
+                feedbackEl.className = "feedback incorrect";
+            }
+            
+            feedbackEl.style.display = "block";
+            updateStreakCounter(isCorrect);
+        }
+
+        // Funció per obtenir l'explicació de preguntes multiopció
+        function getMultipleChoiceExplanation(questionId, correctValue) {
+            const explanations = {
+                'sa1-p1': "La inestabilitat política i les guerres civils per la successió imperial van afeblir greument l'Imperi Romà d'Occident. La manca d'un sistema clar de successió provocava conflictes cada vegada que moria un emperador, debilitant l'estat.",
+                'sa2-p1': "Constantinoble (actual Istanbul) va ser la capital de l'Imperi Bizantí. Fundada per Constantí el Gran sobre l'antiga ciutat de Bizanci, va ser el centre polític, econòmic i cultural de l'Imperi Romà d'Orient durant més de mil anys.",
+                'sa3-p1': "Mahoma va néixer a La Meca l'any 570 dC. Aquesta ciutat, situada a l'actual Aràbia Saudita, és la ciutat més sagrada de l'islam i lloc de naixement del profeta.",
+                'sa4-p1': "El papa Lleó III va coronar Carlemany com a emperador el dia de Nadal de l'any 800. Aquest acte simbolitzava la restauració de l'Imperi Romà d'Occident i establia una aliança entre el papat i l'imperi que marcaria la història europea."
+            };
+            
+            return explanations[questionId] || "Has seleccionat una resposta incorrecta. Revisa els teus coneixements sobre aquest tema.";
+        }
+
+        // Funció per obtenir consells d'aprenentatge
+        function getLearningTip(questionId) {
+            const tips = {
+                'sa1-p1': "Recorda que les causes de la caiguda de Roma es classifiquen en polítiques, militars, econòmiques i socials. Practica identificar cada tipus.",
+                'sa2-p1': "Per memoritzar capitals històriques, associa cada imperi amb la seva ciutat més important i el seu llegat cultural.",
+                'sa3-p1': "Crea una línia del temps mental amb els esdeveniments clau de l'expansió de l'islam per entendre millor la seva cronologia.",
+                'sa4-p1': "Relaciona els personatges històrics amb les seves accions més importants per recordar millor les dates i fets clau."
+            };
+            
+            return tips[questionId] || "Repassa els conceptes bàsics i intenta relacionar-los amb altres fets històrics que ja coneguis.";
+        }
+
+        // Funció per comprovar preguntes Vertader/Fals
+        function checkTrueFalse(questionId, correctValue) {
+            const userAnswer = userAnswers[questionId];
+            const feedbackEl = document.querySelector(`#${questionId} .feedback`);
+            
+            if (userAnswer === undefined) {
+                feedbackEl.innerHTML = `
+                    <div class="feedback-header">
+                        <span class="feedback-icon">🤔</span>
+                        <strong>Resposta incompleta</strong>
+                    </div>
+                    <p>Si us plau, selecciona una resposta abans de comprovar.</p>
+                `;
+                feedbackEl.className = "feedback warning";
+                feedbackEl.style.display = "block";
+                updateStreakCounter(false);
+                return;
+            }
+            
+            const isCorrect = userAnswer === correctValue;
+            
+            if (isCorrect) {
+                feedbackEl.innerHTML = `
+                    <div class="feedback-header">
+                        <span class="feedback-icon">${userStreak >= 3 ? '🔥' : '✅'}</span>
+                        <strong>${getRandomFeedback(positiveFeedback)}</strong>
+                    </div>
+                    <div class="explanation-box">
+                        <strong>🧠 Explicació:</strong> ${getTrueFalseExplanation(questionId, correctValue)}
+                    </div>
+                    ${userStreak >= 3 ? `<div class="streak-bonus">🔥 Ratxa de ${userStreak} respostes correctes!</div>` : ''}
+                `;
+                feedbackEl.className = "feedback correct";
+            } else {
+                feedbackEl.innerHTML = `
+                    <div class="feedback-header">
+                        <span class="feedback-icon">💡</span>
+                        <strong>${getRandomFeedback(encouragingFeedback)}</strong>
+                    </div>
+                    <div class="explanation-box">
+                        <strong>📖 Resposta correcta:</strong> ${correctValue ? 'Vertader' : 'Fals'}
+                    </div>
+                    <div class="explanation-box">
+                        <strong>🧠 Explicació:</strong> ${getTrueFalseExplanation(questionId, correctValue)}
+                    </div>
+                    <div class="feedback-tip">
+                        <strong>💡 Per recordar:</strong> ${getTrueFalseMemoryTip(questionId)}
+                    </div>
+                `;
+                feedbackEl.className = "feedback incorrect";
+            }
+            
+            feedbackEl.style.display = "block";
+            updateStreakCounter(isCorrect);
+        }
+
+        // Funció per obtenir l'explicació de preguntes Vertader/Fals
+        function getTrueFalseExplanation(questionId, correctValue) {
+            const explanations = {
+                'sa1-p2': "La divisió de l'Imperi Romà l'any 395 va crear dos imperis: Orient i Occident. L'Orient era més ric i desenvolupat, mentre que l'Occident va quedar més vulnerable als atacs externs i amb menys recursos, accelerant la seva caiguda.",
+                'sa2-p2': "L'Imperi Bizantí va adoptar el cristianisme com a religió oficial i va desenvolupar la seva pròpia branca, l'Església Ortodoxa. La religió romana pagana va deixar de ser la religió oficial.",
+                'sa3-p2': "L'expansió islàmica va ser un procés complex que incloïa no només conquesta militar, sinó també comerç, difusió cultural, adopció de l'àrab com a llengua i expansió religiosa.",
+                'sa4-p2': "L'Imperi Carolingi es va dividir amb el Tractat de Verdun l'any 843, només 43 anys després de la coronació de Carlemany. Els seus nets van repartir-se l'imperi, donant lloc als regnes que eventualment es convertirien en França i Alemanya."
+            };
+            
+            return explanations[questionId] || "La teva resposta no és correcta. Revisa els teus coneixements sobre aquest tema.";
+        }
+
+        // Funció per obtenir consells de memòria per a Vertader/Fals
+        function getTrueFalseMemoryTip(questionId) {
+            const tips = {
+                'sa1-p2': "Pensa que la divisió va afeblir l'Occident perquè va perdre el suport de les províncies més riques de l'Orient.",
+                'sa2-p2': "Recorda que l'Imperi Bizantí és conegut precisament per ser el primer imperi cristià oficial.",
+                'sa3-p2': "L'islam no només es va expandir amb l'espasa, sinó també amb el comerç i la cultura.",
+                'sa4-p2': "Els imperis solen dividir-se després de grans governants - el de Carlemany no va ser una excepció."
+            };
+            
+            return tips[questionId] || "Intenta comprendre el perquè de cada afirmació en lloc de memoritzar-la.";
+        }
+
+        // Funció per avaluar automàticament les respostes de desenvolupament
+        function evaluateDevelopmentAnswer(questionId, userAnswer) {
+            const expectedElements = getExpectedElements(questionId);
+            const userAnswerLower = userAnswer.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+            
+            let score = 0;
+            let foundElements = [];
+            let missingElements = [];
+            let feedbackDetails = [];
+
+            // Verificar cada element esperat
+            expectedElements.forEach(element => {
+                const elementLower = element.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                const keywords = elementLower.split(' ').filter(word => word.length > 3);
+                
+                let elementFound = false;
+                let keywordMatches = 0;
+                
+                keywords.forEach(keyword => {
+                    if (userAnswerLower.includes(keyword)) {
+                        keywordMatches++;
+                    }
+                });
+
+                // Si coincideixen més del 50% de les paraules clau, considerem l'element trobat
+                if (keywordMatches >= Math.ceil(keywords.length * 0.5)) {
+                    elementFound = true;
+                    score += 2; // 2 punts per element trobat
+                    foundElements.push(element);
+                } else {
+                    missingElements.push(element);
+                }
+            });
+
+            // Puntuació per estructura i qualitat
+            const wordCount = userAnswer.split(/\s+/).length;
+            
+            // Bonus per longitud adequada (entre 50-200 paraules)
+            if (wordCount >= 50 && wordCount <= 200) {
+                score += 1;
+                feedbackDetails.push("✅ La longitud de la resposta és adequada");
+            } else if (wordCount < 50) {
+                feedbackDetails.push("💡 La resposta és massa curta. Proporciona més detalls");
+            } else {
+                feedbackDetails.push("💡 La resposta és massa llarga. Sigues més concís");
+            }
+
+            // Bonus per estructura (presència de connectors i puntuació)
+            const hasConnectors = /(a més|però|per tant|no obstant|per exemple|en conclusió|per una altra banda)/i.test(userAnswer);
+            const sentenceCount = (userAnswer.match(/[.!?]+/g) || []).length;
+            
+            if (hasConnectors && sentenceCount >= 3) {
+                score += 1;
+                feedbackDetails.push("✅ L'estructura de la resposta és clara");
+            } else {
+                feedbackDetails.push("💡 Millora l'estructura amb connectors i frases ben construïdes");
+            }
+
+            // Assegurar que la puntuació estigui entre 0-10
+            score = Math.min(10, Math.max(0, score));
+
+            return {
+                score: Math.round(score),
+                foundElements,
+                missingElements,
+                feedbackDetails,
+                wordCount
+            };
+        }
+
+        // Funció per obtenir els elements esperats per a cada pregunta
+        function getExpectedElements(questionId) {
+            const elementsMap = {
+                'sa1-p3': [
+                    "Pressió militar constant als límits",
+                    "Pèrdua de territoris",
+                    "Establiment de regnes germànics",
+                    "Debilitat econòmica i política"
+                ],
+                'sa2-p3': [
+                    "Religió cristiana",
+                    "Simbologia i litúrgia cristianes",
+                    "Llatí com a idioma oficial",
+                    "Desenvolupament del dret romà",
+                    "Codi Justinià"
+                ],
+                'sa3-p3': [
+                    "Unificació de tribus àrabs",
+                    "Comerç",
+                    "Religió",
+                    "Poder militar",
+                    "Idioma i cultura",
+                    "Àfrica, Àsia i Europa"
+                ],
+                'sa4-p3': [
+                    "Reforma educativa",
+                    "Preservació de textos clàssics",
+                    "Desenvolupament de l'escriptura",
+                    "Arquitectura i art",
+                    "Reforma religiosa"
+                ]
+            };
+            
+            return elementsMap[questionId] || [];
+        }
+
+        // Funció per obtenir el nivell de qualificació
+        function getScoreLevel(score) {
+            if (score >= 9) return { level: "Excel·lent", color: "#28a745", icon: "🏆" };
+            if (score >= 7) return { level: "Molt Bé", color: "#20c997", icon: "⭐" };
+            if (score >= 5) return { level: "Satisfactori", color: "#ffc107", icon: "✅" };
+            if (score >= 3) return { level: "A Millorar", color: "#fd7e14", icon: "💡" };
+            return { level: "Insuficient", color: "#dc3545", icon: "📚" };
+        }
+
+        // Funció millorada per mostrar feedback de desenvolupament amb avaluació automàtica
+        function showDevelopmentFeedback(questionId) {
+            const feedbackEl = document.getElementById(`${questionId}-feedback`);
+            const textarea = document.getElementById(`${questionId}-text`);
+            const userAnswer = textarea.value.trim();
+            
+            if (userAnswer === "") {
+                feedbackEl.innerHTML = `
+                    <div class="feedback-header">
+                        <span class="feedback-icon">📝</span>
+                        <strong>Encara no has respost</strong>
+                    </div>
+                    <p>Escriu la teva resposta a la zona de text abans de veure l'avaluació.</p>
+                `;
+                feedbackEl.className = "feedback warning";
+                feedbackEl.style.display = "block";
+                return;
+            }
+
+            // Realitzar avaluació automàtica
+            const evaluation = evaluateDevelopmentAnswer(questionId, userAnswer);
+            const scoreInfo = getScoreLevel(evaluation.score);
+
+            // Crear HTML de l'avaluació automàtica
+            let evaluationHTML = `
+                <div class="auto-evaluation-result">
+                    <div class="evaluation-header" style="background: ${scoreInfo.color}20; border-left: 4px solid ${scoreInfo.color}">
+                        <div class="score-main">
+                            <span class="score-icon">${scoreInfo.icon}</span>
+                            <div class="score-info">
+                                <div class="score-value">${evaluation.score}/10</div>
+                                <div class="score-level">${scoreInfo.level}</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="evaluation-details">
+                        <div class="elements-section">
+                            <h4>🔍 Elements trobats (${evaluation.foundElements.length}/${evaluation.foundElements.length + evaluation.missingElements.length})</h4>
+                            <div class="elements-list">
+            `;
+
+            // Llistar elements trobats
+            evaluation.foundElements.forEach(element => {
+                evaluationHTML += `<div class="element-found">✅ ${element}</div>`;
+            });
+
+            // Llistar elements que falten
+            if (evaluation.missingElements.length > 0) {
+                evaluationHTML += `
+                    <h4>📋 Elements per millorar</h4>
+                `;
+                evaluation.missingElements.forEach(element => {
+                    evaluationHTML += `<div class="element-missing">💡 ${element}</div>`;
+                });
+            }
+
+            evaluationHTML += `
+                            </div>
+                        </div>
+                        
+                        <div class="feedback-section">
+                            <h4>📊 Anàlisi de la resposta</h4>
+                            <div class="feedback-list">
+            `;
+
+            // Afegir detalls de feedback
+            evaluation.feedbackDetails.forEach(detail => {
+                evaluationHTML += `<div class="feedback-detail">${detail}</div>`;
+            });
+
+            evaluationHTML += `
+                                <div class="word-count">📝 Longitud: ${evaluation.wordCount} paraules</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="improvement-tips">
+                        <h4>🎯 Com millorar</h4>
+                        <div class="tips-content">
+            `;
+
+            // Consells específics segons la puntuació
+            if (evaluation.score < 5) {
+                evaluationHTML += `
+                    <p>🔹 <strong>Revisa els conceptes bàsics</strong> i assegura't d'entendre'ls abans de continuar</p>
+                    <p>🔹 <strong>Organitza les teves idees</strong> abans d'escriure</p>
+                    <p>🔹 <strong>Inclou exemples concrets</strong> per il·lustrar els teus arguments</p>
+                `;
+            } else if (evaluation.score < 8) {
+                evaluationHTML += `
+                    <p>🔹 <strong>Amplia els teus arguments</strong> amb més detalls</p>
+                    <p>🔹 <strong>Connecta les idees</strong> entre si per crear un discurs coherent</p>
+                    <p>🔹 <strong>Revisa la gramàtica</strong> i l'ortografia</p>
+                `;
+            } else {
+                evaluationHTML += `
+                    <p>🔹 <strong>Excel·lent treball!</strong> Continua amb aquest nivell de detall</p>
+                    <p>🔹 <strong>Pots aprofundir</strong> relacionant aquests conceptes amb altres temes</p>
+                    <p>🔹 <strong>Considera perspectives alternatives</strong> per enriquir la teva anàlisi</p>
+                `;
+            }
+
+            evaluationHTML += `
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Inserir l'avaluació automàtica al feedback
+            const existingAutoEval = document.getElementById(`${questionId}-auto-eval`);
+            if (existingAutoEval) {
+                existingAutoEval.remove();
+            }
+            
+            feedbackEl.insertAdjacentHTML('afterbegin', evaluationHTML);
+            feedbackEl.style.display = 'block';
+            
+            updateStreakCounter(true);
+        }
+
+        // Funció per comprovar preguntes d'emplenar buits
+        function checkFillBlanks(questionId, correctAnswers) {
+            let correctCount = 0;
+            const totalBlanks = correctAnswers.length;
+            const feedbackEl = document.querySelector(`#${questionId} .feedback`);
+            let feedbackHTML = "";
+            let allCorrect = true;
+            
+            for (let i = 0; i < totalBlanks; i++) {
+                const inputEl = document.getElementById(`${questionId}-${i}`);
+                const userAnswer = inputEl.value.trim().toLowerCase();
+                const correctAnswer = correctAnswers[i].toLowerCase();
+                
+                if (userAnswer === correctAnswer) {
+                    inputEl.style.backgroundColor = "#d4edda";
+                    inputEl.style.color = "#155724";
+                    inputEl.classList.add('correct-blank');
+                    correctCount++;
+                } else {
+                    inputEl.style.backgroundColor = "#f8d7da";
+                    inputEl.style.color = "#721c24";
+                    inputEl.classList.add('incorrect-blank');
+                    feedbackHTML += `<div class="blank-correction">
+                        <span class="blank-number">Paraula ${i+1}:</span>
+                        "<span class="user-answer">${userAnswer || '(buit)'}</span>" 
+                        → "<span class="correct-answer">${correctAnswers[i]}</span>"
+                    </div>`;
+                    allCorrect = false;
+                }
+            }
+            
+            const isCorrect = allCorrect;
+            
+            if (isCorrect) {
+                feedbackEl.innerHTML = `
+                    <div class="feedback-header">
+                        <span class="feedback-icon">${userStreak >= 3 ? '🔥' : '🎯'}</span>
+                        <strong>Perfecte! Has encertat totes les respostes</strong>
+                    </div>
+                    <div class="explanation-box">
+                        <strong>🧠 Explicació:</strong> ${getFillBlanksExplanation(questionId)}
+                    </div>
+                    ${userStreak >= 3 ? `<div class="streak-bonus">🔥 Impressionant! ${userStreak} encerts consecutius</div>` : ''}
+                    <div class="completion-celebration">
+                        <span class="celebration-icon">⭐</span>
+                        Has demostrat un bon coneixement d'aquests conceptes bàsics
+                    </div>
+                `;
+                feedbackEl.className = "feedback correct";
+            } else {
+                feedbackEl.innerHTML = `
+                    <div class="feedback-header">
+                        <span class="feedback-icon">📝</span>
+                        <strong>Has encertat ${correctCount} de ${totalBlanks} respostes</strong>
+                    </div>
+                    <div class="explanation-box">
+                        <strong>🧠 Explicació:</strong> ${getFillBlanksExplanation(questionId)}
+                    </div>
+                    <div class="corrections-section">
+                        <strong>🔍 Correccions necessàries:</strong>
+                        ${feedbackHTML}
+                    </div>
+                    <div class="feedback-tip">
+                        <strong>💡 Consell:</strong> ${getFillBlanksPracticeTip(questionId)}
+                    </div>
+                    <div class="encouragement">
+                        ${getRandomFeedback(encouragingFeedback)} Torna-ho a intentar després d'estudiar una mica!
+                    </div>
+                `;
+                feedbackEl.className = "feedback incorrect";
+            }
+            
+            feedbackEl.style.display = "block";
+            updateStreakCounter(isCorrect);
+        }
+
+        // Funció per obtenir l'explicació de preguntes d'emplenar buits
+        function getFillBlanksExplanation(questionId) {
+            const explanations = {
+                'sa1-p4': "L'any 476 marca tradicionalment la caiguda de l'Imperi Romà d'Occident, quan el líder germànic Odoacre va deposar l'últim emperador romà, Ròmul Augústul. Les guerres civils, invasions germàniques i crisi econòmica van ser factors clau en aquest procés.",
+                'sa2-p4': "L'Imperi Bizantí es va originar amb la divisió definitiva de l'Imperi Romà. Justinià I va ser el seu emperador més important, conegut per la seva recopilació de lleis romanes en el Codi de Justinià, que va influir en el dret europeu durant segles.",
+                'sa3-p4': "L'Hègira (622 dC) marca l'inici del calendari islàmic. Mahoma, profeta de l'islam, va fugir de La Meca a Medina i va començar a predicar la paraula d'Al·là, recollida posteriorment en l'Alcorà, el llibre sagrat de l'islam.",
+                'sa4-p4': "Carlemany va ser coronat emperador el 800, restaurant simbòlicament l'Imperi Romà d'Occident. El Tractat de Verdun (843) va dividir el seu imperi entre els seus nets: Lluís el Germànic (orient), Carles el Calb (occident) i Lotari (centre)."
+            };
+            
+            return explanations[questionId] || "Aquests conceptes són fonamentals per entendre aquest període històric.";
+        }
+
+        // Funció per obtenir consells de pràctica per a emplenar buits
+        function getFillBlanksPracticeTip(questionId) {
+            const tips = {
+                'sa1-p4': "Crea targetes d'estudi amb les dates i conceptes clau de la caiguda de Roma.",
+                'sa2-p4': "Fes un esquema relacionant personatges importants amb les seves obres i fets rellevants.",
+                'sa3-p4': "Practica amb exercicis de completar frases per memoritzar els termes bàsics de l'islam.",
+                'sa4-p4': "Dibuixa un mapa mental de la divisió de l'Imperi Carolingi per visualitzar els territoris."
+            };
+            
+            return tips[questionId] || "Repetir aquest tipus d'exercicis et ajudarà a fixar millor els conceptes.";
+        }
+
+        // Funció per calcular els resultats finals amb feedback personalitzat
+        function calculateResults() {
+            let totalQuestions = 0;
+            let correctAnswers = 0;
+            const sectionResults = {};
+            
+            // Comptar preguntes multiopció i vertader/fals
+            document.querySelectorAll('.question').forEach(question => {
+                const questionId = question.id;
+                const section = questionId.split('-')[0];
+                const feedbackEl = question.querySelector('.feedback');
+                
+                if (!sectionResults[section]) {
+                    sectionResults[section] = { correct: 0, total: 0 };
+                }
+                
+                if (feedbackEl && feedbackEl.classList.contains('correct')) {
+                    correctAnswers++;
+                    totalQuestions++;
+                    sectionResults[section].correct++;
+                    sectionResults[section].total++;
+                } else if (feedbackEl && feedbackEl.classList.contains('incorrect')) {
+                    totalQuestions++;
+                    sectionResults[section].total++;
+                }
+            });
+            
+            // Comptar preguntes d'emplenar buits
+            document.querySelectorAll('.fill-blanks').forEach(blankSection => {
+                const inputs = blankSection.querySelectorAll('input');
+                const questionId = blankSection.closest('.question').id;
+                const section = questionId.split('-')[0];
+                
+                if (!sectionResults[section]) {
+                    sectionResults[section] = { correct: 0, total: 0 };
+                }
+                
+                let allCorrect = true;
+                inputs.forEach(input => {
+                    if (!input.classList.contains('correct-blank')) {
+                        allCorrect = false;
+                    }
+                });
+                
+                if (inputs.length > 0) {
+                    totalQuestions++;
+                    sectionResults[section].total++;
+                    if (allCorrect) {
+                        correctAnswers++;
+                        sectionResults[section].correct++;
+                    }
+                }
+            });
+            
+            const score = Math.round((correctAnswers / totalQuestions) * 100);
+            const scoreEl = document.getElementById('score');
+            const summaryEl = document.getElementById('summary');
+            
+            // Feedback personalitzat segons la puntuació
+            let finalFeedback = "";
+            let celebration = "";
+            
+            if (score >= 90) {
+                finalFeedback = "🏆 <strong>Excel·lent!</strong> Domines completament aquests continguts històrics.";
+                celebration = "🎉 Ets un veritable expert en història medieval!";
+            } else if (score >= 70) {
+                finalFeedback = "🌟 <strong>Molt bé!</strong> Tens una bona comprensió dels conceptes clau.";
+                celebration = "💪 Amb una mica més d'estudi, arribaràs a l'excel·lència!";
+            } else if (score >= 50) {
+                finalFeedback = "📚 <strong>Bàsic assolit</strong> Has après els conceptes fonamentals.";
+                celebration = "🔍 Identifica els temes més dèbils i repassa'ls per millorar.";
+            } else {
+                finalFeedback = "🌱 <strong>A punt per créixer</strong> Has començat a entendre aquests conceptes.";
+                celebration = "📖 No et rendeixis! Tothom comença per algun lloc. Continua estudiant!";
+            }
+            
+            scoreEl.innerHTML = `
+                <div class="final-score">Puntuació: <span class="score-number">${score}%</span></div>
+                <div class="score-detail">(${correctAnswers} de ${totalQuestions} correctes)</div>
+                <div class="final-feedback">${finalFeedback}</div>
+                <div class="celebration-message">${celebration}</div>
+                ${bestStreak >= 5 ? `<div class="special-achievement">🔥 Achievement desbloquejat: Ratxa de ${bestStreak} respostes correctes!</div>` : ''}
+            `;
+            
+            let summaryHTML = "<h3>📊 Resum detallat per seccions:</h3><ul>";
+            
+            Object.keys(sectionResults).forEach(section => {
+                const sectionData = sectionResults[section];
+                const sectionScore = sectionData.total > 0 ? Math.round((sectionData.correct / sectionData.total) * 100) : 0;
+                let sectionIcon = "📘";
+                
+                if (sectionScore >= 90) sectionIcon = "🏆";
+                else if (sectionScore >= 70) sectionIcon = "⭐";
+                else if (sectionScore >= 50) sectionIcon = "📗";
+                else sectionIcon = "📙";
+                
+                summaryHTML += `
+                    <li>
+                        ${sectionIcon} ${getSectionTitle(section)}: 
+                        <span class="section-score">${sectionScore}%</span> 
+                        (${sectionData.correct} de ${sectionData.total})
+                    </li>
+                `;
+            });
+            
+            summaryHTML += `</ul>
+                <div class="study-recommendations">
+                    <h4>🎯 Recomanacions d'estudi:</h4>
+                    ${getStudyRecommendations(sectionResults)}
+                </div>
+            `;
+            
+            summaryEl.innerHTML = summaryHTML;
+        }
+
+        // Funció per obtenir el títol de la secció
+        function getSectionTitle(section) {
+            const titles = {
+                'sa1': "Caiguda de l'Imperi Romà",
+                'sa2': "Imperi Bizantí",
+                'sa3': "Imperi Islàmic", 
+                'sa4': "Imperi Carolingi"
+            };
+            return titles[section] || section;
+        }
+
+        // Funció per obtenir recomanacions d'estudi personalitzades
+        function getStudyRecommendations(sectionResults) {
+            let recommendations = "";
+            const weakSections = [];
+            
+            Object.keys(sectionResults).forEach(section => {
+                const sectionData = sectionResults[section];
+                const sectionScore = sectionData.total > 0 ? Math.round((sectionData.correct / sectionData.total) * 100) : 0;
+                
+                if (sectionScore < 70) {
+                    weakSections.push(section);
+                }
+            });
+            
+            if (weakSections.length === 0) {
+                recommendations = `
+                    <p>✅ <strong>Excel·lent equilibri!</strong> No tens àrees dèbils significatives.</p>
+                    <p>💡 <strong>Següent pas:</strong> Pots aprofundir en temes més complexos o relacionar aquests continguts amb altres períodes històrics.</p>
+                `;
+            } else {
+                recommendations = `<p>🔍 <strong>Àrees per millorar:</strong></p><ul>`;
+                weakSections.forEach(section => {
+                    const sectionName = getSectionTitle(section);
+                    recommendations += `<li>📖 <strong>${sectionName}</strong> - Repassa els conceptes clau i fes més exercicis d'aquesta secció.</li>`;
+                });
+                recommendations += `</ul>`;
+            }
+            
+            recommendations += `
+                <div class="general-tips">
+                    <p>💡 <strong>Consells generals:</strong></p>
+                    <ul>
+                        <li>Fes repassos regulars per consolidar els coneixements</li>
+                        <li>Crea mapes conceptuals per visualitzar les relacions entre conceptes</li>
+                        <li>Practica amb més exercicis com aquests</li>
+                    </ul>
+                </div>
+            `;
+            
+            return recommendations;
+        }
+
+        // Inicialitzar el comptador de ratxa
+        document.addEventListener('DOMContentLoaded', function() {
+            const resultsSection = document.querySelector('.results');
+            const streakCounter = document.createElement('div');
+            streakCounter.id = 'streak-counter';
+            streakCounter.className = 'streak-counter';
+            streakCounter.innerHTML = `🔥 Ratxa actual: 0 | 🏆 Millor ratxa: 0`;
+            resultsSection.parentNode.insertBefore(streakCounter, resultsSection);
+        });
+    </script>
+</body>
+</html>

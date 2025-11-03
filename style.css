@@ -1,0 +1,182 @@
+/* Estils per a l'avaluació automàtica */
+.auto-evaluation-result {
+    margin: 15px 0;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.evaluation-header {
+    padding: 20px;
+    background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+}
+
+.score-main {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.score-icon {
+    font-size: 2.5em;
+}
+
+.score-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.score-value {
+    font-size: 2em;
+    font-weight: bold;
+    background: linear-gradient(135deg, var(--primary), var(--secondary));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.score-level {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: var(--dark);
+}
+
+.evaluation-details {
+    padding: 20px;
+    background: white;
+}
+
+.elements-section, .feedback-section {
+    margin-bottom: 20px;
+}
+
+.elements-section h4, .feedback-section h4 {
+    color: var(--primary);
+    margin-bottom: 10px;
+    border-bottom: 2px solid var(--light);
+    padding-bottom: 5px;
+}
+
+.elements-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.element-found, .element-missing, .feedback-detail {
+    padding: 10px;
+    border-radius: 8px;
+    margin: 5px 0;
+}
+
+.element-found {
+    background: #d4edda;
+    border-left: 4px solid #28a745;
+    color: #155724;
+}
+
+.element-missing {
+    background: #fff3cd;
+    border-left: 4px solid #ffc107;
+    color: #856404;
+}
+
+.feedback-detail {
+    background: #e7f3ff;
+    border-left: 4px solid #17a2b8;
+    color: #0c5460;
+}
+
+.word-count {
+    margin-top: 10px;
+    padding: 8px;
+    background: #f8f9fa;
+    border-radius: 5px;
+    text-align: center;
+    font-style: italic;
+}
+
+.improvement-tips {
+    padding: 20px;
+    background: #fff3cd;
+    border-radius: 0 0 10px 10px;
+}
+
+.improvement-tips h4 {
+    color: #856404;
+    margin-bottom: 15px;
+}
+
+.tips-content {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.tips-content p {
+    margin: 0;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+}
+
+/* Animacions per a l'avaluació */
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.auto-evaluation-result {
+    animation: slideIn 0.5s ease-out;
+}
+
+/* Estils responsius */
+@media (max-width: 768px) {
+    .score-main {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .score-value {
+        font-size: 1.8em;
+    }
+    
+    .evaluation-header {
+        padding: 15px;
+    }
+    
+    .evaluation-details {
+        padding: 15px;
+    }
+}
+
+/* Indicadors visuals addicionals */
+.progress-indicator {
+    display: flex;
+    justify-content: space-between;
+    margin: 10px 0;
+    padding: 10px;
+    background: #f8f9fa;
+    border-radius: 10px;
+}
+
+.progress-item {
+    text-align: center;
+    flex: 1;
+}
+
+.progress-number {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--secondary);
+}
+
+.progress-label {
+    font-size: 0.8em;
+    color: var(--dark);
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Qüestionari - Història 2n ESO</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Qüestionari - Història 2n ESO</h1>
+            <p>Respon les preguntes i comprova els teus coneixements</p>
+        </header>
+        
+        <!-- Comptador de ratxa (NOU) -->
+        <div id="streak-counter" class="streak-counter">
+            🔥 Ratxa actual: 0 | 🏆 Millor ratxa: 0
+        </div>
+        
+        <!-- SA1: CAIGUDA DE L'IMPERI ROMÀ -->
+        <div class="section">
+            <h2>SA1: CAIGUDA DE L'IMPERI ROMÀ</h2>
+            
+            <!-- P1 - Multiopció (amb nova estructura de feedback) -->
+            <div class="question" id="sa1-p1">
+                <h3>P1 - Multiopció</h3>
+                <p>Quin dels següents factors va ser una causa política de la crisi de l'Imperi Romà d'Occident?</p>
+                <div class="options">
+                    <div class="option" data-value="0">La pèrdua de terres cultivables per l'erosió.</div>
+                    <div class="option" data-value="1">La inestabilitat i les guerres civils per la successió imperial.</div>
+                    <div class="option" data-value="2">La importació massiva de seda de la Xina.</div>
+                    <div class="option" data-value="3">L'aparició de noves tecnologies militars.</div>
+                </div>
+                <button class="check-btn" onclick="checkMultipleChoice('sa1-p1', 1)">Comprova resposta</button>
+                <div class="feedback"></div>
+            </div>
+            
+            <!-- P2 - Vertader/Fals (amb nova estructura de feedback) -->
+            <div class="question" id="sa1-p2">
+                <h3>P2 - Vertader/Fals</h3>
+                <p>La divisió de l'Imperi Romà en Orient i Occident va afeblir considerablement l'Imperi d'Occident.</p>
+                <div class="true-false">
+                    <button class="true-false-btn true-btn" onclick="selectTrueFalse('sa1-p2', true)">Vertader</button>
+                    <button class="true-false-btn false-btn" onclick="selectTrueFalse('sa1-p2', false)">Fals</button>
+                </div>
+                <button class="check-btn" onclick="checkTrueFalse('sa1-p2', true)">Comprova resposta</button>
+                <div class="feedback"></div>
+            </div>
+            
+            <!-- P3 - Desenvolupament (amb autoavaluació millorada) -->
+            <div class="question" id="sa1-p3">
+                <h3>P3 - Desenvolupament</h3>
+                <p>Explica com les invasions germàniques van contribuir a la caiguda de l'Imperi Romà d'Occident.</p>
+                <textarea placeholder="Escriu la teva resposta aquí..." id="sa1-p3-text"></textarea>
+                <button class="show-feedback-btn" onclick="showDevelopmentFeedback('sa1-p3')">Mostra feedback</button>
+                <div class="feedback info" id="sa1-p3-feedback">
+                    <strong>Elements esperats:</strong><br>
+                    - Pressió militar constant als límits<br>
+                    - Pèrdua de territoris<br>
+                    - Establiment de regnes germànics<br>
+                    - Debilitat econòmica i política<br><br>
+                    
+                    <div class="ideal-answer-section">
+                        <strong>📝 Resposta ideal:</strong><br>
+                        Les invasions germàniques van contribuir decisivament a la caiguda de l'Imperi Romà d'Occident. Des del segle III, pobles germànics com els gots, vàndals, francs i sueus van pressionar constantment les fronteres de l'imperi. Aquesta pressió militar va obligar Roma a desviar grans recursos per a la defensa, afeblint altres àrees. A més, molts d'aquests pobles es van establir dins dels territoris romans, creant regnes independents que van fragmentar l'imperi. Finalment, el saqueig de Roma pels visigots el 410 i la deposició de l'últim emperador romà d'Occident, Ròmul Augústul, per Odoacre el 476, van marcar el final definitiu de l'Imperi Romà d'Occident.
+                    </div>
+                    
+                    <div class="explanation-section">
+                        <strong>🧠 Explicació:</strong><br>
+                        Les invasions germàniques no van ser l'única causa de la caiguda, però van ser el factor desencadenant que va accelerar un procés ja en marxa per les crisis internes.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- P4 - Emplenar buits (amb nova estructura de correcció) -->
+            <div class="question" id="sa1-p4">
+                <h3>P4 - Emplenar buits</h3>
+                <div class="fill-blanks">
+                    <p>L'Imperi Romà d'Occident es va dividir en dos l'any <span class="blank"><input type="text" id="sa1-p4-0"></span>. Entre les causes de la seva caiguda hi ha les <span class="blank"><input type="text" id="sa1-p4-1"></span> civils, les invasions <span class="blank"><input type="text" id="sa1-p4-2"></span> i la crisi <span class="blank"><input type="text" id="sa1-p4-3"></span>.</p>
+                </div>
+                <button class="check-btn" onclick="checkFillBlanks('sa1-p4', ['476', 'guerres', 'germàniques', 'econòmica'])">Comprova resposta</button>
+                <div class="feedback"></div>
+            </div>
+        </div>
+        
+        <!-- SA2: IMPERI BIZANTÍ (estructura similar a SA1) -->
+        <div class="section">
+            <h2>SA2: IMPERI BIZANTÍ</h2>
+            
+            <!-- Les preguntes de SA2 tenen la mateixa estructura millorada -->
+            <div class="question" id="sa2-p1">
+                <h3>P1 - Multiopció</h3>
+                <p>Quina va ser la capital de l'Imperi Bizantí?</p>
+                <div class="options">
+                    <div class="option" data-value="0">Roma</div>
+                    <div class="option" data-value="1">Atenes</div>
+                    <div class="option" data-value="2">Constantinoble</div>
+                    <div class="option" data-value="3">Alexandria</div>
+                </div>
+                <button class="check-btn" onclick="checkMultipleChoice('sa2-p1', 2)">Comprova resposta</button>
+                <div class="feedback"></div>
+            </div>
+            
+            <!-- ... resta de preguntes de SA2 amb estructura similar ... -->
+            
+        </div>
+        
+        <!-- SA3 i SA4 amb la mateixa estructura millorada -->
+        
+        <div class="results">
+            <h2>📊 Resultats Finals</h2>
+            <button class="check-btn" onclick="calculateResults()">Calcula la puntuació final</button>
+            <div class="score" id="score"></div>
+            <div class="summary" id="summary"></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
